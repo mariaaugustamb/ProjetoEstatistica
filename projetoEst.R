@@ -4,15 +4,15 @@
 
 
 got = read.csv("PlanilhaGOT.csv", header = TRUE)
-print (got)
+#print (got)
 
 dimensao = dim(got)
-print(dimensao)
+#print(dimensao)
 linhas = dimensao[1][1] # pegando quantidade de linhas
-print(linhas)
+#print(linhas)
 colunas = got[0,] # pegando quantidade de colunas
-print(colunas)
-print(length(colunas))
+#print(colunas)
+#print(length(colunas))
 
 # questao 1
 media = mean(got[,3])
@@ -45,7 +45,7 @@ nomeEp <- function(got,linhas){
     
   for (i in 1:linhas){
     if(got[i,3] >= 9){
-      eps=c(eps, got[i,2])
+      eps=c(eps, as.character(got[i,2]))
     }
   }
   return (eps)
