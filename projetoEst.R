@@ -1,7 +1,6 @@
 # Maria Augusta(mamb2)
 # Igor Simões (ibps)
 # Tiago Sousa (tsc2)
-library(stringr)
 
 got = read.csv("PlanilhaGOT.csv", header = TRUE)
 #print (got)
@@ -56,7 +55,7 @@ print (nomeEps)
 
 #questao 5
 
-indexMM <- function(got,linhas){
+indexMM <- function(got,linhas){ # funcao que retorna indexes da menor e maior nota da temporada
   maior = 0
   indexMaior = 0
   menor = 10
@@ -97,11 +96,12 @@ nomeMM <- function(got, abc, coluna) {
   return (eps)
 }
 
-
 nomesMM = nomeMM(got,indexesMM, 2)
 matrixA = data.frame(Nota = nomeMM(got,indexesMM,3),
                      Titulo = nomeMM(got,indexesMM,2),
                      Temporada = nomeMM(got,indexesMM,1))
+print(nomesMM)
+print(matrixA)
 
 #questao 6
 
@@ -133,6 +133,7 @@ DPTemps <- function(got,linhas){
 }
 
 menorDPTemp = DPTemps(got,linhas)
+print(menorDPTemp)
 
 #questao 7
 brienne <- function(got,linhas) {
@@ -147,6 +148,7 @@ brienne <- function(got,linhas) {
   return(mean(notas))
 }
 AKK = brienne(got,linhas)
+print(AKK)
 
 #questao 8
 temp4app <- function(got,linhas) {
@@ -163,9 +165,11 @@ temp4app <- function(got,linhas) {
   }
 }
 Resposta = temp4app(got,linhas)
+print(Resposta)
 
 
 #questao 9
+
 questao9 <- function(got,linhas, personagem) {
   freq = c()
   tempAtual = 1
@@ -176,13 +180,12 @@ questao9 <- function(got,linhas, personagem) {
     }
     if(grepl(personagem,personagens)) {
       freq = c(freq, tempAtual)
-      #freqTemp = freqTemp + 1
     }
     
   }
-  #freq = c(freq, freqTemp)
-  return (freq)
+  hist(freq, main = personagem, xlab = "Temporada", ylab="Ocorrencia", breaks = c(0,1,2,3,4,5,6,7,8), xlim = c(0, 8), ylim = c(0, 10), col = "lightblue", border="white")
 }
-fre = questao9(got, linhas, "Bran Stark")
-histChar = hist(questao9(got,linhas,"Bran Stark"), breaks = c(0,1,2,3,4,5,6,7,8), xlim = c(0, 8), ylim = c(0, 10), col = "lightblue")
+personagem = readline(prompt="Escreve o personagem da questão 9")
+questao9(got, linhas, personagem)
+#histChar = hist(questao9(got,linhas,"Bran Stark"), breaks = c(0,1,2,3,4,5,6,7,8), xlim = c(0, 8), ylim = c(0, 10), col = "lightblue", border="white")
 
