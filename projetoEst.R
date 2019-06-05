@@ -148,3 +148,40 @@ brienne <- function(got,linhas) {
 }
 AKK = brienne(got,linhas)
 
+#questao 8
+temp4app <- function(got,linhas) {
+  characters = c()
+  for(i in 1:linhas) {
+    if(got[i,1] == 4) {
+      amor = strsplit(as.character(got[i,4]), ",")
+      characters = c(characters, unlist(amor))
+    } else if(got[i,1] == 5) {
+      frequencia = table(characters)
+      minApp = list(names(frequencia)[frequencia == min(frequencia)])
+      return (minApp)
+    }
+  }
+}
+Resposta = temp4app(got,linhas)
+
+
+#questao 9
+brienne <- function(got,linhas, personagem) {
+  freq = c()
+  freqTemp = 0
+  tempAtual = 1
+  for(i in 1:linhas) {
+    personagens = as.character(got[i,4])
+    if(tempAtual != got[i,1]) {
+      freq = c(freq, freqTemp)
+      freqTemp = 0
+      tempAtual = tempAtual + 1
+    }
+    if(grepl(personagem,personagens)) {
+      freqTemp = freqTemp + 1
+    }
+    
+  }
+  freq = c(freq, freqTemp)
+  return (freq)
+}
