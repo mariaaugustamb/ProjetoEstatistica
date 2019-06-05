@@ -166,22 +166,23 @@ Resposta = temp4app(got,linhas)
 
 
 #questao 9
-brienne <- function(got,linhas, personagem) {
+questao9 <- function(got,linhas, personagem) {
   freq = c()
-  freqTemp = 0
   tempAtual = 1
   for(i in 1:linhas) {
     personagens = as.character(got[i,4])
     if(tempAtual != got[i,1]) {
-      freq = c(freq, freqTemp)
-      freqTemp = 0
       tempAtual = tempAtual + 1
     }
     if(grepl(personagem,personagens)) {
-      freqTemp = freqTemp + 1
+      freq = c(freq, tempAtual)
+      #freqTemp = freqTemp + 1
     }
     
   }
-  freq = c(freq, freqTemp)
+  #freq = c(freq, freqTemp)
   return (freq)
 }
+fre = questao9(got, linhas, "Bran Stark")
+histChar = hist(questao9(got,linhas,"Bran Stark"), breaks = c(0,1,2,3,4,5,6,7,8), xlim = c(0, 8), ylim = c(0, 10), col = "lightblue")
+
