@@ -1,7 +1,7 @@
 # Maria Augusta(mamb2)
 # Igor Simões (ibps)
 # Tiago Sousa (tsc2)
-
+library(stringr)
 
 got = read.csv("PlanilhaGOT.csv", header = TRUE)
 #print (got)
@@ -53,4 +53,98 @@ nomeEp <- function(got,linhas){
 
 nomeEps = nomeEp(got, linhas)
 print (nomeEps)
+
+#questao 5
+
+indexMM <- function(got,linhas){
+  maior = 0
+  indexMaior = 0
+  menor = 10
+  indexMenor = 0
+  tempAtual = 1
+  eps = c()
+  
+  for (i in 1:linhas){
+    if(got[i,1] != tempAtual) {
+      eps = c(eps, indexMenor, indexMaior)
+      maior = 0
+      indexMaior = 0
+      menor = 10
+      indexMenor = 0
+      tempAtual = tempAtual + 1
+    }
+    if(got[i,1] == tempAtual){
+      if(got[i,3] > maior) {
+        indexMaior = i
+        maior = got[i,3]
+      }
+      if(got[i,3] < menor) {
+        indexMenor = i
+        menor = got[i,3]
+      }
+    }
+  }
+  eps = c(eps, indexMenor, indexMaior)
+  return (eps)
+}
+indexesMM = indexMM(got,linhas)
+
+nomeMM <- function(got, abc, coluna) {
+  eps = c()
+  for(i in abc) {
+    eps = c(eps, as.character(got[i,coluna]))
+  }
+  return (eps)
+}
+
+
+nomesMM = nomeMM(got,indexesMM, 2)
+matrixA = data.frame(Nota = nomeMM(got,indexesMM,3),
+                     Titulo = nomeMM(got,indexesMM,2),
+                     Temporada = nomeMM(got,indexesMM,1))
+
+#questao 6
+
+
+DPTemps <- function(got,linhas){
+  tempAtual = 1
+  eps = c()
+  publicos = c()
+  
+  for (i in 1:linhas){
+    if(got[i,1] != tempAtual) {
+      eps = c(eps, sd(publicos))
+      publicos = c()
+      tempAtual = tempAtual + 1
+    }
+    if(i != linhas) {
+      publicos = c(publicos, got[i,5])
+    }
+  }
+  eps = c(eps, sd(publicos))
+  minimum = min(eps)
+  index = 0
+  for(i in 1:length(eps)) {
+    if(eps[i] == minimum) {
+      index = i
+    }
+  }
+  return (index)
+}
+
+menorDPTemp = DPTemps(got,linhas)
+
+#questao 7
+brienne <- function(got,linhas) {
+  notas = c()
+  for(i in 1:linhas) {
+    personagens = as.character(got[i,4])
+    if(grepl("Brienne",personagens)) {
+      notas = c(notas, got[i,3])
+    }
+    
+  }
+  return(mean(notas))
+}
+AKK = brienne(got,linhas)
 
